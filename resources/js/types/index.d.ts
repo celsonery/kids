@@ -1,3 +1,4 @@
+import type { PageProps } from '@inertiajs/core';
 import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
 
@@ -17,13 +18,13 @@ export interface NavItem {
     isActive?: boolean;
 }
 
-export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+export interface SharedData extends PageProps {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
-};
+}
 
 export interface User {
     id: number;

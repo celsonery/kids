@@ -1,7 +1,8 @@
-import { route } from 'ziggy-js';
+import { RouteParams, Router } from 'ziggy-js';
 
 declare global {
-    let route: typeof route;
+    function route(): Router;
+    function route(name: string, params?: RouteParams<typeof name> | undefined, absolute?: boolean): string;
 }
 
 declare module '@vue/runtime-core' {
