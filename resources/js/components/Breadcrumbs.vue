@@ -2,13 +2,13 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Link } from '@inertiajs/vue3';
 
-interface BreadcrumbItemType {
+interface BreadcrumbItem {
     title: string;
     href?: string;
 }
 
 defineProps<{
-    breadcrumbs: BreadcrumbItemType[];
+    breadcrumbs: BreadcrumbItem[];
 }>();
 </script>
 
