@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreKidRequest extends FormRequest
+class KidResultRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class StoreKidRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file', 'mimes:csv,txt']
+            'name' => ['required', 'string'],
+            'cpf' => ['required', 'string', 'min:14', 'max:14']
         ];
     }
 }

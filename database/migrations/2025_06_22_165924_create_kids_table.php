@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('process');
             $table->string('name');
             $table->string('cpf');
-            $table->string('state');
+            $table->string('state')->nullable();
             $table->timestamps();
+
+            $table->unique(['name', 'cpf']);
         });
     }
 
