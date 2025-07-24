@@ -1,14 +1,3 @@
-<script setup lang="ts">
-import { Separator } from '@/components/ui/separator';
-import { Head, Link } from '@inertiajs/vue3';
-import AppKidSearch from '@/components/AppKidSearch.vue';
-import AppOverview from '@/components/AppOverview.vue';
-
-const props = defineProps({
-    overviews: Object
-});
-</script>
-
 <template>
     <Head title="Welcome"></Head>
     <div class="flex min-h-screen flex-col text-[#1b1b18] lg:p-4 dark:text-white">
@@ -45,3 +34,14 @@ const props = defineProps({
     </div>
     <div class="hidden h-14.5 lg:block"></div>
 </template>
+
+<script setup lang="ts">
+import { Separator } from '@/components/ui/separator';
+import { Head, Link } from '@inertiajs/vue3';
+import AppKidSearch from '@/components/AppKidSearch.vue';
+import AppOverview from '@/components/AppOverview.vue';
+
+const props = defineProps({
+    overviews: Object
+});
+</script>
