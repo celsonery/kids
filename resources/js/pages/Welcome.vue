@@ -40,8 +40,4 @@ import { Separator } from '@/components/ui/separator';
 import { Head, Link } from '@inertiajs/vue3';
 import AppKidSearch from '@/components/AppKidSearch.vue';
 import AppOverview from '@/components/AppOverview.vue';
-
-const props = defineProps({
-    overviews: Object
-});
 </script>
