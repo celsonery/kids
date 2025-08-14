@@ -1,10 +1,9 @@
 name: tests
 
 on:
-  workflow_run:
-    workflows: [ "linter" ]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   ci:
