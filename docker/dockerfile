@@ -10,13 +10,10 @@ RUN apk --update --no-cache add curl \
     libzip-dev \
     libpq-dev \
     libpng-dev \
-    oniguruma-dev \
-    linux-headers \
     git \
     lynx \
     nodejs \
-    npm \
-    postgresql-client
+    npm
 
 # Install packages to run PHP/laravel and our app
 RUN apk --update --no-cache add php83-bcmath \
@@ -26,13 +23,13 @@ RUN apk --update --no-cache add php83-bcmath \
     php83-gettext \
     php83-opcache \
     php83-pcntl \
-    php83-zip \
-    php83-pgsql
+    php83-zip
 
 # Install extensions for PHP
 RUN docker-php-ext-install \
     pdo \
-    pdo_pgsql \
+    gd \
+    zip \
     exif
 
 # Use php.ini-production as php.ini and add extra.ini
