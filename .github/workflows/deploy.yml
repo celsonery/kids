@@ -30,12 +30,6 @@ jobs:
       - name: Build Vue App
         run: npm run build
 
-      - name: PHP Composer
-        uses: baschny/php-composer-action@v1
-
-      - name: Install PHP dependencies
-        run: composer update
-
       - name: Login to Docker Registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.REGISTRY }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
