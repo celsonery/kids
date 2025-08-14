@@ -1,12 +1,6 @@
-<script setup lang="ts">
-import { Separator } from '@/components/ui/separator';
-import { Head, Link } from '@inertiajs/vue3';
-import AppKidSearch from '@/components/AppKidSearch.vue';
-</script>
-
 <template>
     <Head title="Welcome"></Head>
-    <div class="flex min-h-screen flex-col items-center p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:text-white">
+    <div class="flex min-h-screen flex-col text-[#1b1b18] lg:p-4 dark:text-white">
         <header class="mb-6 w-full text-sm not-has-[nav]:hidden">
             <nav class="flex items-center justify-end gap-4">
                 <Link
@@ -32,9 +26,22 @@ import AppKidSearch from '@/components/AppKidSearch.vue';
                 </template>
             </nav>
         </header>
+        <AppOverview :overviews="$page.props.overviews" />
+
         <Separator class="my-4 bg-gray-800" />
 
         <AppKidSearch />
     </div>
     <div class="hidden h-14.5 lg:block"></div>
 </template>
+
+<script setup lang="ts">
+import { Separator } from '@/components/ui/separator';
+import { Head, Link } from '@inertiajs/vue3';
+import AppKidSearch from '@/components/AppKidSearch.vue';
+import AppOverview from '@/components/AppOverview.vue';
+
+const props = defineProps({
+    overviews: Object
+});
+</script>
