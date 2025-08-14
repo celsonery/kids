@@ -8,7 +8,7 @@ on:
 
 env:
   IMAGE_NAME: kids
-  IMAGE_TAG: 1.0.${{ github.sha }}
+  IMAGE_TAG: 1.0.${{ github.run_number }}
 
 jobs:
   build-and-push:
