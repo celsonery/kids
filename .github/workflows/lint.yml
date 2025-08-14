@@ -1,4 +1,4 @@
-name: linter
+name: 1 - Linter
 
 on:
   push:
