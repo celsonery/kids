@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kids
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kids
+  template:
+    metadata:
+      labels:
+        app: kids
+    spec:
+      securityContext:
+        runAsUser: 5000
+        runAsGroup: 5000
+      containers:
+        - name: pit
+          image: celsonery/kids:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "1000m"
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kids
+  namespace: apps
+spec:
+  selector:
+    app: kids
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 8000
