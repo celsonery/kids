@@ -18,7 +18,7 @@ spec:
         runAsGroup: 5000
       containers:
         - name: pit
-          image: celsonery/kids:latest
+          image: registry.oregon.net.br/celso/kids:latest
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
