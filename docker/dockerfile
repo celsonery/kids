@@ -51,6 +51,9 @@ COPY ./docker/entrypoint.sh ./
 RUN touch database/database.sqlite
 RUN chmod 777 database/database.sqlite
 
+# Dando permissao na pasta Storage
+RUN chmod 777 storage
+
 # Update composer optimizing autoload with no dev dependencies
 RUN composer update -o --no-dev --with-all-dependencies
 
