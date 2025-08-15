@@ -8,8 +8,6 @@ RUN apk --update --no-cache add curl \
     vim \
     libzip \
     libzip-dev \
-    libpq-dev \
-    libpng-dev \
     git \
     lynx \
     nodejs \
@@ -49,7 +47,7 @@ WORKDIR /usr/local/bin/app
 # Copy source files and create .env using .env.example
 COPY . ./
 # COPY .env.example .env
-COPY ./docker/entrypoint.sh ./
+# COPY ./docker/entrypoint.sh ./
 
 # Criando um Database SQLite vazio
 # RUN touch database/database.sqlite
@@ -72,11 +70,11 @@ RUN npm run build
 # Change application to production
 # RUN sed -i 's/APP_ENV=local/APP_ENV=production/g' .env
 # RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
-RUN chmod 755 entrypoint.sh
+#RUN chmod 755 entrypoint.sh
 
 # Expose port
 EXPOSE 8000
 
 # Run using this command
-# CMD [ "php", "artisan", "serve", "--host=0.0.0.0", "--port=8000" ]
-ENTRYPOINT ["./entrypoint.sh"]
+CMD [ "php", "artisan", "serve", "--host=0.0.0.0", "--port=8000" ]
+# ENTRYPOINT ["./entrypoint.sh"]
