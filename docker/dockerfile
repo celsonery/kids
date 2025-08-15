@@ -28,6 +28,7 @@ RUN apk --update --no-cache add php83-bcmath \
 # Install extensions for PHP
 RUN docker-php-ext-install \
     pdo \
+    pdo-mysql \
     gd \
     zip \
     exif
