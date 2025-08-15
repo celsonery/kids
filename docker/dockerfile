@@ -44,12 +44,12 @@ WORKDIR /usr/local/bin/app
 
 # Copy source files and create .env using .env.example
 COPY . ./
-COPY .env.example .env
+# COPY .env.example .env
 COPY ./docker/entrypoint.sh ./
 
 # Criando um Database SQLite vazio
-RUN touch database/database.sqlite
-RUN chmod 777 database/database.sqlite
+# RUN touch database/database.sqlite
+# RUN chmod 777 database/database.sqlite
 
 # Dando permissao na pasta Storage
 RUN chmod -R 777 storage
@@ -59,15 +59,15 @@ RUN chmod -R 777 bootstrap/cache
 RUN composer update -o --no-dev --with-all-dependencies
 
 # Generate laravel key
-RUN php artisan key:generate
+# RUN php artisan key:generate
 
 # Build frontend using npm
 RUN npm install
 RUN npm run build
 
 # Change application to production
-RUN sed -i 's/APP_ENV=local/APP_ENV=production/g' .env
-RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
+# RUN sed -i 's/APP_ENV=local/APP_ENV=production/g' .env
+# RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
 RUN chmod 755 entrypoint.sh
 
 # Expose port
