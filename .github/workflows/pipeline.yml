@@ -82,7 +82,7 @@ jobs:
         run: ./vendor/bin/pest
 
   build-image:
-    name: Build and Push Image
+    name: Build Image
     needs: tests
     runs-on: ubuntu-latest
 
