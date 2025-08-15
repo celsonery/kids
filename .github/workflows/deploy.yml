@@ -37,6 +37,9 @@ jobs:
       - name: Build Docker Image
         run: docker build -f docker/dockerfile -t ${{ secrets.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
 
+      - name: Docker tag latest
+        run: docker tag ${{ secrets.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ secrets.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+
       - name: Push Docker Image
         run: docker push ${{ secrets.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
