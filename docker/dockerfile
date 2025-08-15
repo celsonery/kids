@@ -8,6 +8,7 @@ RUN apk --update --no-cache add curl \
     vim \
     libzip \
     libzip-dev \
+    libpng-dev \
     git \
     lynx \
     nodejs \
