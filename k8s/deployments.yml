@@ -17,7 +17,7 @@ spec:
         runAsUser: 5000
         runAsGroup: 5000
       containers:
-        - name: pit
+        - name: kids
           image: registry.oregon.net.br/celso/kids:latest
           imagePullPolicy: IfNotPresent
           securityContext:
