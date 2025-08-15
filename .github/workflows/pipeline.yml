@@ -1,16 +1,83 @@
-name: 3 - Build and Deploy
+name: Pipeline CI/CD
 
 on:
-  workflow_run:
-    workflows: ["2 - Tests"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
 
 env:
   IMAGE_NAME: kids
   IMAGE_TAG: 1.0.${{ github.run_number }}
 
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+
+      - name: Install Dependencies
+        run: |
+          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          npm install
+
+      - name: Run Pint
+        run: vendor/bin/pint
+
+      - name: Format Frontend
+        run: npm run format
+
+      - name: Lint Frontend
+        run: npm run lint
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Install Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Copy Environment File
+        run: cp .env.example .env
+
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      - name: Publish Ziggy Configuration
+        run: php artisan ziggy:generate
+
+      - name: Build Assets
+        run: npm run build
+
+      - name: Tests
+        run: ./vendor/bin/pest
+
   build-and-push:
     name: Build and Push Image
     runs-on: ubuntu-latest
@@ -31,8 +98,7 @@ jobs:
         run: npm run build
 
       - name: Login to Docker Registry
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.REGISTRY }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.REGISTRY }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker Image
         run: docker build -f docker/dockerfile -t ${{ secrets.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
@@ -65,7 +131,3 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl -n apps set image deploy/kids kids=${{ secrets.REGISTRY }}/${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-
-      - name: Testando Variavies
-        run: |
-          echo "${{ github.run_id }} - ${{ github.run_number }} - ${{ github.job }}"
