@@ -1,3 +1,25 @@
+<template>
+    <Head title="Importação" />
+
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 md:w-10/12">
+            <div class="grid w-full max-w-sm items-center gap-1.5">
+                <Label for="picture">Planilha CSV</Label>
+                <Input id="picture" type="file" accept=".csv" @change="handleFileChange" />
+            </div>
+            <div class="my-2">
+                <Button
+                    @click.prevent="submit"
+                    :disabled="form.processing || !form.file">
+                    <Loader2 v-if="form.processing" class="w-4 h-4 mr-1 animate-spin" />
+                    Enviar planilha
+                </Button>
+            </div>
+            {{ message }}
+        </div>
+    </AppLayout>
+</template>
+
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
@@ -20,7 +42,7 @@ function handleFileChange(e) {
 function submit() {
     message.value = '';
 
-    form.post(route('kid.store'), {
+    form.post(route('kid.import'), {
         forceFormData: true,
         onSuccess: () => {
             form.file = null
@@ -41,24 +63,3 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 </script>
-<template>
-    <Head title="Importação" />
-
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 md:w-10/12">
-            <div class="grid w-full max-w-sm items-center gap-1.5">
-                <Label for="picture">Planilha CSV</Label>
-                <Input id="picture" type="file" accept=".csv" @change="handleFileChange" />
-            </div>
-            <div class="my-2">
-                <Button
-                    @click.prevent="submit"
-                    :disabled="form.processing || !form.file">
-                    <Loader2 v-if="form.processing" class="w-4 h-4 mr-1 animate-spin" />
-                    Enviar planilha
-                </Button>
-            </div>
-            {{ message }}
-        </div>
-    </AppLayout>
-</template>
