@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Cpf;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreKidRequest extends FormRequest
@@ -22,7 +23,8 @@ class StoreKidRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file', 'mimes:csv,txt']
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'cpf' => ['required', new Cpf()]
         ];
     }
 }
