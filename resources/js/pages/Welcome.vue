@@ -3,7 +3,6 @@
     <div class="flex min-h-screen flex-col text-[#1b1b18] dark:text-white">
         <AppWelcome />
     </div>
-    <div class="hidden h-14.5 lg:block"></div>
 </template>
 
 <script setup lang="ts">
