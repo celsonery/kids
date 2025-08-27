@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full mx-auto flex gap-4">
+    <div class="w-full h-screen mx-auto flex gap-4">
         <div class="hidden md:block md:w-2/5 bg-[url(/assets/images/kids-united.jpg)] bg-center bg-cover"></div>
 
         <div class="w-full md:w-3/5 p-2 md:p-12">
