@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.1](https://github.com/celsonery/kids/compare/0.0.0...v0.0.1) (2025-08-27)
+
+
+---
+
 ## [1.0.0](https://github.com/celsonery/kids/compare/2375a9cebae9b128e9258e1bd2ca5ec0ca52ce61...v1.0.0) (2025-07-15)
 
 ### Features
