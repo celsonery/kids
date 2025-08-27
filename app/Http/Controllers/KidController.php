@@ -2,80 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KidImportRequest;
 use App\Http\Requests\KidResultRequest;
 use App\Http\Requests\StoreKidRequest;
 use App\Http\Requests\UpdateKidRequest;
 use App\Imports\KidImport;
 use App\Models\Kid;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KidController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Auth::user()->kids();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): Response
     {
         return Inertia::render('kids/Import');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreKidRequest $request): RedirectResponse
-    {
-
-        Excel::import(new KidImport, $request->file('file'));
-
-        return redirect()->back()->with(
-            'success', 'Arquivo importado com sucesso!'
-        );
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Kid $kid)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Kid $kid)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateKidRequest $request, Kid $kid)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Kid $kid)
-    {
-        //
-    }
-
-    public function result(KidResultRequest $request): void
+    public function result(KidResultRequest $request)
     {
         if (!$request->validated()) {
             abort('Dados fornecidos inválidos');
@@ -85,14 +36,22 @@ class KidController extends Controller
             ->where('cpf', get_cpf_short($request['cpf']))
             ->first();
 
+
         if (isset($kid['id'])) {
-            redirect()->back()->with(
-                'success', $kid->state
-            );
+            return response()->json($kid);
         } else {
             redirect()->back()->with(
                 'error', 'Situação não encontrada!'
             );
         }
+    }
+
+    public function import(KidImportRequest $request)
+    {
+        Excel::import(new KidImport, $request->file('file'));
+
+        return redirect()->back()->with(
+            'success', 'Arquivo importado com sucesso!'
+        );
     }
 }

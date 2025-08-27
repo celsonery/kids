@@ -22,7 +22,7 @@ class KidImportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file', 'mime:csv']
+            'file' => ['required', 'file', 'mimes:csv,txt']
         ];
     }
 }
