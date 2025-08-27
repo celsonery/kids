@@ -1,6 +1,6 @@
 <template>
     <Head title="Welcome"></Head>
-    <div class="flex min-h-screen flex-col text-[#1b1b18] lg:p-4 dark:text-white">
+    <div class="flex min-h-screen flex-col text-[#1b1b18] dark:text-white">
         <AppWelcome />
     </div>
     <div class="hidden h-14.5 lg:block"></div>
