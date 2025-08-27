@@ -1,8 +1,8 @@
 <template>
     <Tabs default-value="overview" class="space-y-4">
         <TabsContent value="overview" class="space-y-4">
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card v-for="item in props.overviews" :key="item.name" class="bg-blue-950">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <Card v-for="item in props.overviews" :key="item.name" class="bg-blue-950 text-white">
                     <CardHeader class="flex flex-row items-center justify-between space-y-0">
                         <CardTitle class="font-small text-sm"> {{ item.name }} </CardTitle>
                     </CardHeader>
