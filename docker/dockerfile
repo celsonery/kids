@@ -68,6 +68,9 @@ RUN composer update -o --no-dev --with-all-dependencies
 RUN npm install
 RUN npm run build
 
+# Create storage link to storage files
+RUN php artisan storage:link
+
 # Change application to production
 # RUN sed -i 's/APP_ENV=local/APP_ENV=production/g' .env
 # RUN sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
