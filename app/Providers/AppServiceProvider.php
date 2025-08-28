@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Kid;
+use App\Models\User;
 use App\Observers\KidObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Kid::observe(KidObserver::class);
+        User::observe(UserObserver::class);
 
         Gate::define('access-imports', function ($user) {
             return $user->hasRole('admin');

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Kid;
+use App\Notifications\NotifyKidUpdated;
 
 class KidObserver
 {
@@ -20,6 +21,19 @@ class KidObserver
     public function updated(Kid $kid): void
     {
         logs()->debug("Kid {$kid->name} updated");
+
+        $users = $kid->users()
+            ->where('kid_id', $kid->id)
+            ->get();
+
+        if ($users->count() > 0) {
+
+            logs()->debug($users->count());
+
+            foreach ($users as $user) {
+                $user->notify(new NotifyKidUpdated($user));
+            }
+        }
     }
 
     /**
