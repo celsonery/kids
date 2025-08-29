@@ -20,43 +20,16 @@ class KidObserver
      */
     public function updated(Kid $kid): void
     {
-        logs()->debug("Kid {$kid->name} updated");
+        logs()->debug("Kid {$kid->id} - {$kid->name} updated");
 
         $users = $kid->users()
             ->where('kid_id', $kid->id)
             ->get();
 
         if ($users->count() > 0) {
-
-            logs()->debug($users->count());
-
             foreach ($users as $user) {
                 $user->notify(new NotifyKidUpdated($user));
             }
         }
-    }
-
-    /**
-     * Handle the Kid "deleted" event.
-     */
-    public function deleted(Kid $kid): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Kid "restored" event.
-     */
-    public function restored(Kid $kid): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Kid "force deleted" event.
-     */
-    public function forceDeleted(Kid $kid): void
-    {
-        //
     }
 }
