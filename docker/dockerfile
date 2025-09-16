@@ -9,6 +9,10 @@ RUN apk --update --no-cache add curl \
     libzip \
     libzip-dev \
     libpng-dev \
+    libpq-dev \
+    oniguruma-dev \
+    linux-headers \
+    postgresql-client \
     git \
     lynx \
     nodejs \
@@ -22,15 +26,15 @@ RUN apk --update --no-cache add php83-bcmath \
     php83-gettext \
     php83-opcache \
     php83-pcntl \
-    php83-mysqlnd \
+    php83-pgsql \
     php83-pdo \
-    php83-pdo_mysql \
+    php83-pdo_pgsql \
     php83-zip
 
 # Install extensions for PHP
 RUN docker-php-ext-install \
     pdo \
-    pdo_mysql \
+    pdo_pgsql \
     gd \
     zip \
     exif
